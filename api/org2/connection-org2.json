@@ -1,0 +1,60 @@
+{
+    "name": "supplychain-network",
+    "version": "1.0.0",
+    "client": {
+        "organization": "warehouse",
+        "connection": {
+            "timeout": {
+                "peer": {
+                    "endorser": "300"
+                }
+            }
+        }
+    },
+    "organizations": {
+        "warehouse": {
+            "mspid": "warehouseMSP",
+            "peers": [
+                "peer0.warehouse.supplychain.com",
+                "peer1.warehouse.supplychain.com"
+            ],
+            "certificateAuthorities": [
+                "ca.warehouse.supplychain.com"
+            ]
+        }
+    },
+    "peers": {
+        "peer0.warehouse.supplychain.com":{
+            "url": "grpcs://localhost:9051",
+            "grpcOption": {
+                "ssl-target-name-override": "peer0.warehouse.supplychain.com",
+                "hostnameOverride": "peer0.warehouse.supplychain.com"
+            },
+            "tlsCACerts": {
+                "path": "/root/binaries/supply-chain-management-using-hyperledger-fabric/supplychain-network/organizations/peerOrganizations/warehouse.supplychain.com/tlsca/tlsca.warehouse.supplychain.com-cert.pem"
+            }
+        },
+        "peer1.warehouse.supplychain.com":{
+            "url": "grpcs://localhost:10051",
+            "grpcOption": {
+                "ssl-target-name-override": "peer1.warehouse.supplychain.com",
+                "hostnameOverride": "peer1.warehouse.supplychain.com"
+            },
+            "tlsCACerts": {
+                "path": "/root/binaries/supply-chain-management-using-hyperledger-fabric/supplychain-network/organizations/peerOrganizations/warehouse.supplychain.com/tlsca/tlsca.warehouse.supplychain.com-cert.pem"
+            }
+        }
+    },
+    "certificateAuthorities": {
+        "ca.warehouse.supplychain.com": {
+            "url": "https://localhost:8054",
+            "caName": "ca.warehouse.supplychain.com",
+            "httpOptions": {
+                "verify": false
+            },
+            "tlsCACerts": {
+                "path": "/root/binaries/supply-chain-management-using-hyperledger-fabric/supplychain-network/organizations/peerOrganizations/warehouse.supplychain.com/ca/ca.warehouse.supplychain.com-cert.pem"
+            }
+        }
+    }
+}

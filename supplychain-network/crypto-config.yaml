@@ -1,0 +1,58 @@
+OrdererOrgs:
+  - Name: Orderer
+    Domain: supplychain.com
+    EnableNodeOUs: true
+    Specs:
+      - Hostname: orderer
+        SANS:
+          - "localhost"
+          - "127.0.0.1"
+      - Hostname: orderer2
+        SANS:
+          - "localhost"
+          - "127.0.0.1"
+      - Hostname: orderer3
+        SANS:
+          - "localhost"
+          - "127.0.0.1"
+
+PeerOrgs:
+  - Name: farmer
+    Domain: farmer.supplychain.com
+    EnableNodeOUs: true
+    Template:
+      Count: 2
+      SANS:
+        - "localhost"
+    Users:
+      Count: 1
+
+  - Name: warehouse
+    Domain: warehouse.supplychain.com
+    EnableNodeOUs: true
+    Template:
+      Count: 2
+      SANS:
+        - "localhost"
+    Users:
+      Count: 1
+      
+  - Name: retailer
+    Domain: retailer.supplychain.com
+    EnableNodeOUs: true
+    Template:
+      Count: 2
+      SANS:
+        - "localhost"
+    Users:
+      Count: 1
+      
+  - Name: transporter
+    Domain: transporter.supplychain.com
+    EnableNodeOUs: true
+    Template:
+      Count: 2
+      SANS:
+        - "localhost"
+    Users:
+      Count: 1

@@ -1,0 +1,60 @@
+{
+    "name": "supplychain-network",
+    "version": "1.0.0",
+    "client": {
+        "organization": "retailer",
+        "connection": {
+            "timeout": {
+                "peer": {
+                    "endorser": "300"
+                }
+            }
+        }
+    },
+    "organizations": {
+        "retailer": {
+            "mspid": "retailerMSP",
+            "peers": [
+                "peer0.retailer.supplychain.com",
+                "peer1.retailer.supplychain.com"
+            ],
+            "certificateAuthorities": [
+                "ca.retailer.supplychain.com"
+            ]
+        }
+    },
+    "peers": {
+        "peer0.retailer.supplychain.com":{
+            "url": "grpcs://localhost:11051",
+            "grpcOption": {
+                "ssl-target-name-override": "peer0.retailer.supplychain.com",
+                "hostnameOverride": "peer0.retailer.supplychain.com"
+            },
+            "tlsCACerts": {
+                "path": "/root/binaries/supply-chain-management-using-hyperledger-fabric/supplychain-network/organizations/peerOrganizations/retailer.supplychain.com/tlsca/tlsca.retailer.supplychain.com-cert.pem"
+            }
+        },
+        "peer1.retailer.supplychain.com":{
+            "url": "grpcs://localhost:12051",
+            "grpcOption": {
+                "ssl-target-name-override": "peer1.retailer.supplychain.com",
+                "hostnameOverride": "peer1.retailer.supplychain.com"
+            },
+            "tlsCACerts": {
+                "path": "/root/binaries/supply-chain-management-using-hyperledger-fabric/supplychain-network/organizations/peerOrganizations/retailer.supplychain.com/tlsca/tlsca.retailer.supplychain.com-cert.pem"
+            }
+        }
+    },
+    "certificateAuthorities": {
+        "ca.retailer.supplychain.com": {
+            "url": "https://localhost:9054",
+            "caName": "ca.retailer.supplychain.com",
+            "httpOptions": {
+                "verify": false
+            },
+            "tlsCACerts": {
+                "path": "/root/binaries/supply-chain-management-using-hyperledger-fabric/supplychain-network/organizations/peerOrganizations/retailer.supplychain.com/ca/ca.retailer.supplychain.com-cert.pem"
+            }
+        }
+    }
+}

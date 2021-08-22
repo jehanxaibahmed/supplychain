@@ -1,0 +1,60 @@
+{
+    "name": "supplychain-network",
+    "version": "1.0.0",
+    "client": {
+        "organization": "farmer",
+        "connection": {
+            "timeout": {
+                "peer": {
+                    "endorser": "300"
+                }
+            }
+        }
+    },
+    "organizations": {
+        "farmer": {
+            "mspid": "farmerMSP",
+            "peers": [
+                "peer0.farmer.supplychain.com",
+                "peer1.farmer.supplychain.com"
+            ],
+            "certificateAuthorities": [
+                "ca.farmer.supplychain.com"
+            ]
+        }
+    },
+    "peers": {
+        "peer0.farmer.supplychain.com":{
+            "url": "grpcs://localhost:7051",
+            "grpcOption": {
+                "ssl-target-name-override": "peer0.farmer.supplychain.com",
+                "hostnameOverride": "peer0.farmer.supplychain.com"
+            },
+            "tlsCACerts": {
+                "path": "/root/binaries/supply-chain-management-using-hyperledger-fabric/supplychain-network/organizations/peerOrganizations/farmer.supplychain.com/tlsca/tlsca.farmer.supplychain.com-cert.pem"
+            }
+        },
+        "peer1.farmer.supplychain.com":{
+            "url": "grpcs://localhost:8051",
+            "grpcOption": {
+                "ssl-target-name-override": "peer1.farmer.supplychain.com",
+                "hostnameOverride": "peer1.farmer.supplychain.com"
+            },
+            "tlsCACerts": {
+                "path": "/root/binaries/supply-chain-management-using-hyperledger-fabric/supplychain-network/organizations/peerOrganizations/farmer.supplychain.com/tlsca/tlsca.farmer.supplychain.com-cert.pem"
+            }
+        }
+    },
+    "certificateAuthorities": {
+        "ca.farmer.supplychain.com": {
+            "url": "https://localhost:7054",
+            "caName": "ca.farmer.supplychain.com",
+            "httpOptions": {
+                "verify": false
+            },
+            "tlsCACerts": {
+                "path": "/root/binaries/supply-chain-management-using-hyperledger-fabric/supplychain-network/organizations/peerOrganizations/farmer.supplychain.com/ca/ca.farmer.supplychain.com-cert.pem"
+            }
+        }
+    }
+}

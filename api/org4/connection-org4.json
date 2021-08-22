@@ -1,0 +1,60 @@
+{
+    "name": "supplychain-network",
+    "version": "1.0.0",
+    "client": {
+        "organization": "transporter",
+        "connection": {
+            "timeout": {
+                "peer": {
+                    "endorser": "300"
+                }
+            }
+        }
+    },
+    "organizations": {
+        "transporter": {
+            "mspid": "transporterMSP",
+            "peers": [
+                "peer0.transporter.supplychain.com",
+                "peer1.transporter.supplychain.com"
+            ],
+            "certificateAuthorities": [
+                "ca.transporter.supplychain.com"
+            ]
+        }
+    },
+    "peers": {
+        "peer0.transporter.supplychain.com":{
+            "url": "grpcs://localhost:13051",
+            "grpcOption": {
+                "ssl-target-name-override": "peer0.transporter.supplychain.com",
+                "hostnameOverride": "peer0.transporter.supplychain.com"
+            },
+            "tlsCACerts": {
+                "path": "../../supplychain-network/organizations/peerOrganizations/transporter.supplychain.com/tlsca/tlsca.transporter.supplychain.com-cert.pem"
+            }
+        },
+        "peer1.transporter.supplychain.com":{
+            "url": "grpcs://localhost:14051",
+            "grpcOption": {
+                "ssl-target-name-override": "peer1.transporter.supplychain.com",
+                "hostnameOverride": "peer1.transporter.supplychain.com"
+            },
+            "tlsCACerts": {
+                "path": "../../supplychain-network/organizations/peerOrganizations/transporter.supplychain.com/tlsca/tlsca.transporter.supplychain.com-cert.pem"
+            }
+        }
+    },
+    "certificateAuthorities": {
+        "ca.transporter.supplychain.com": {
+            "url": "https://localhost:10054",
+            "caName": "ca.transporter.supplychain.com",
+            "httpOptions": {
+                "verify": false
+            },
+            "tlsCACerts": {
+                "path": "../../supplychain-network/organizations/peerOrganizations/transporter.supplychain.com/ca/ca.transporter.supplychain.com-cert.pem"
+            }
+        }
+    }
+}
