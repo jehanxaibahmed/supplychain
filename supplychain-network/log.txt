@@ -1,4 +1,1 @@
-Installed chaincodes on peer:
-Package ID: supplychain_1:3bcbd57581f1a14337354ea3282174b2ff8700e6ad0ea6a0ae462975497d32d0, Label: supplychain_1
-Package ID: supplychain-6_1:4915507d6f9a2f1dc6ae43c01f660c800adc8798b1c4e40f216aa122e1a89ac1, Label: supplychain-6_1
-Package ID: supplychain_2:06d843424d91626e006753b1af5f90dfa42ce1f5ce2396ce1a27e916dfe46c5a, Label: supplychain_2
+[34m2021-08-22 23:22:52.133 PKT [chaincodeCmd] chaincodeInvokeOrQuery -> INFO 001[0m Chaincode invoke successful. result: status:200 

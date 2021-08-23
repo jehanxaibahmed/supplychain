@@ -15,9 +15,8 @@
         "farmer": {
             "mspid": "farmerMSP",
             "peers": [
-                "peer0.farmer.supplychain.com",
-                "peer1.farmer.supplychain.com"
-            ],
+                "peer0.farmer.supplychain.com"
+                        ],
             "certificateAuthorities": [
                 "ca.farmer.supplychain.com"
             ]
@@ -29,16 +28,6 @@
             "grpcOption": {
                 "ssl-target-name-override": "peer0.farmer.supplychain.com",
                 "hostnameOverride": "peer0.farmer.supplychain.com"
-            },
-            "tlsCACerts": {
-                "path": "/root/binaries/supply-chain-management-using-hyperledger-fabric/supplychain-network/organizations/peerOrganizations/farmer.supplychain.com/tlsca/tlsca.farmer.supplychain.com-cert.pem"
-            }
-        },
-        "peer1.farmer.supplychain.com":{
-            "url": "grpcs://localhost:8051",
-            "grpcOption": {
-                "ssl-target-name-override": "peer1.farmer.supplychain.com",
-                "hostnameOverride": "peer1.farmer.supplychain.com"
             },
             "tlsCACerts": {
                 "path": "/root/binaries/supply-chain-management-using-hyperledger-fabric/supplychain-network/organizations/peerOrganizations/farmer.supplychain.com/tlsca/tlsca.farmer.supplychain.com-cert.pem"

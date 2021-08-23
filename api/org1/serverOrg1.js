@@ -45,65 +45,122 @@ app.post('/api/registerenrolluserorg1/', async function (req, res) {
 app.post('/api/generaterubbercert/', async function (req, res) {
     try {
         const username = req.body.username
-        // load the network configuration
-        const ccpPath = path.resolve(__dirname, 'connection-org1.json')
-        const ccp = JSON.parse(fs.readFileSync(ccpPath, 'utf-8'))
+       
 
-        // Create a new file system based wallet for managing identities.
-        const walletPath = path.join(process.cwd(), 'api/org1/walletOrg1')
-        const wallet = await Wallets.newFileSystemWallet(walletPath)
-        console.log(`Wallet path: ${walletPath}`)
+         // load the network configuration
+         const ccpPath = path.resolve(__dirname,'connection-org1.json');
+         let ccp = JSON.parse(fs.readFileSync(ccpPath, 'utf8'));
+ 
+         // Create a new file system based wallet for managing identities.
+         const walletPath = path.join(process.cwd(), 'api/org1/walletOrg1');
+         const wallet = await Wallets.newFileSystemWallet(walletPath);
+         console.log(`Wallet path: ${walletPath}`);
+ 
+         // Check to see if we've already enrolled the user.
+         const identity = await wallet.get(username);
+         if (!identity) {
+             console.log('An identity for the user "appUser" does not exist in the wallet');
+             console.log('Run the registerUser.js application before retrying');
+             return;
+         }
+ 
+         // Create a new gateway for connecting to our peer node.
+         const gateway = new Gateway();
+         await gateway.connect(ccp, { wallet, identity: username, discovery: { enabled: false, asLocalhost: true } });
+ 
+         // Get the network (channel) our contract is deployed to.
+         const network = await gateway.getNetwork('supplychain-channel');
+ 
+         // Get the contract from the network.
+         const contract = network.getContract('supplychain_2');
+ 
+         // Submit the specified transaction.
+         // createCar transaction - requires 5 argument, ex: ('createCar', 'CAR12', 'Honda', 'Accord', 'Black', 'Tom')
+         // changeCarOwner transaction - requires 2 args , ex: ('changeCarOwner', 'CAR12', 'Dave')
+         await contract.submitTransaction('createCar', 'CAR12', 'Honda', 'Accord', 'Black', 'Tom');
+         console.log('Transaction has been submitted');
+ 
+         // Disconnect from the gateway.
+         await gateway.disconnect();
+ 
 
-        // Check to see if we've already enrolled the user.
-        const identity = await wallet.get(username)
-        if (!identity) {
-            console.log(`An identity for the user "${username}" does not exist in the wallet`)
-            console.log('Run the registerUser.js application before retrying')
-            throw new Error(`An identity for the user ${username.toUpperCase()} does not exist in the wallet`)
-            return
-        }
 
-        // Create a new gateway for connecting to our peer node.
-        const gateway = new Gateway()
-        await gateway.connect(ccp, { 
-            wallet, 
-            identity: username, 
-            discovery: { 
-                enabled: true, 
-                asLocalhost: true 
-                } 
-        })
 
-        // Get the network (channel) our contract is deployed to.
-        const network = await gateway.getNetwork('supplychain-channel')
 
-        // Get the contract from the network.
-        const contract = network.getContract('supplychain')
 
-        // Submit the specified transaction
-        // GenerateRubberCert transaction - requires 8 arguments 
-        // ex: {'GenerateRubberCert' ,'rubber1', 'natural', 'shore 00 soft', '25', 'indonesian farm', '10000', 'us client', '20-12-2020'}
-        // rubberBatchNumber string, rubberType string, hardness string, tensileStrength int, rubberCertHolder string, weight int, buyer string, date string
 
-        await contract.submitTransaction(
-            'GenerateRubberCert', 
-            req.body.rubberBatchNumber,
-            req.body.rubberType,
-            req.body.hardness,
-            req.body.tensileStrength,
-            req.body.rubberCertHolder,
-            req.body.weight,
-            req.body.buyer,
-            req.body.date
-        )
-        console.log('Transaction has been submitted')
-        res.status(201).json({
-            result: 'Transaction has been submitted',
-            error: null
-        })
 
-        // Disconnect from the gateway.
-        await gateway.disconnect()
+
+
+
+
+
+
+
+
+//  // load the network configuration
+//  const ccpPath = path.resolve(__dirname, 'connection-org1.json')
+//  const ccp = JSON.parse(fs.readFileSync(ccpPath, 'utf-8'))
+
+//  // Create a new file system based wallet for managing identities.
+//  const walletPath = path.join(process.cwd(), 'api/org1/walletOrg1')
+//  const wallet = await Wallets.newFileSystemWallet(walletPath)
+//  console.log(`Wallet path: ${walletPath}`)
+
+//  // Check to see if we've already enrolled the user.
+//  const identity = await wallet.get(username)
+//  if (!identity) {
+//      console.log(`An identity for the user "${username}" does not exist in the wallet`)
+//      console.log('Run the registerUser.js application before retrying')
+//      throw new Error(`An identity for the user ${username.toUpperCase()} does not exist in the wallet`)
+//      return
+//  }
+
+
+
+        // // Create a new gateway for connecting to our peer node.
+        // const gateway = new Gateway()
+        // await gateway.connect(ccp, { 
+        //     wallet, 
+        //     identity: username, 
+        //     discovery: { 
+        //         enabled: false, 
+        //         asLocalhost: true                 } 
+        // })
+
+
+        
+        // // Get the network (channel) our contract is deployed to.
+        // const network = await gateway.getNetwork('supplychain-channel')
+
+        // // Get the contract from the network.
+        // const contract = network.getContract('supplychain_2')
+
+        // // Submit the specified transaction
+        // // GenerateRubberCert transaction - requires 8 arguments 
+        // // ex: {'GenerateRubberCert' ,'rubber1', 'natural', 'shore 00 soft', '25', 'indonesian farm', '10000', 'us client', '20-12-2020'}
+        // // rubberBatchNumber string, rubberType string, hardness string, tensileStrength int, rubberCertHolder string, weight int, buyer string, date string
+
+
+        // // await contract.submitTransaction(
+        // //     'GenerateRubberCert', 
+        // //     req.body.rubberBatchNumber,
+        // //     req.body.rubberType,
+        // //     req.body.hardness,
+        // //     req.body.tensileStrength,
+        // //     req.body.rubberCertHolder,
+        // //     req.body.weight,
+        // //     req.body.buyer,
+        // //     req.body.date
+        // // )
+        // // console.log('Transaction has been submitted')
+        // res.status(201).json({
+        //     result: 'Transaction has been submitted',
+        //     error: null
+        // })
+
+        // // Disconnect from the gateway.
+        // await gateway.disconnect()
 
 
     } catch (error) {
@@ -115,7 +172,7 @@ app.post('/api/generaterubbercert/', async function (req, res) {
     }
 })
 
-app.get('/api/querygeneratedrubbercert/', async function (req, res) {
+app.post('/api/querygeneratedrubbercert/', async function (req, res) {
     try {
         const username = req.body.username
         // load the network configuration
@@ -142,7 +199,7 @@ app.get('/api/querygeneratedrubbercert/', async function (req, res) {
             wallet, 
             identity: username, 
             discovery: { 
-                enabled: true, 
+                enabled: false, 
                 asLocalhost: true 
                 } 
         })

@@ -5,6 +5,6 @@ export CORE_PEER_MSPCONFIGPATH=${PWD}/../../supplychain-network/organizations/pe
 export CORE_PEER_ADDRESS=localhost:7051
 
 export FABRIC_CFG_PATH=${PWD}/../../config/
-#peer channel fetch newest supplychain-channel.block -c supplychain-channel --orderer orderer.supplychain.com:7050
+peer channel fetch newest supplychain-channel.block -c supplychain-channel --orderer orderer.supplychain.com:7050
 peer channel getinfo -c supplychain-channel > block.json 
 cat block.json | cut -c 18- > blockchainInfo.json

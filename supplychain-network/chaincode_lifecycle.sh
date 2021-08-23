@@ -9,10 +9,10 @@ export CORE_PEER_TLS_ROOTCERT_FILE_ORG3=/root/binaries/supply-chain-management-u
 export CORE_PEER_TLS_ROOTCERT_FILE_ORG4=/root/binaries/supply-chain-management-using-hyperledger-fabric/supplychain-network/organizations/peerOrganizations/transporter.supplychain.com/peers/peer0.transporter.supplychain.com/tls/ca.crt
 
 CHANNEL_NAME="supplychain-channel"
-CHAINCODE_NAME="supplychain_1"
-CHAINCODE_VERSION="2.0"
+CHAINCODE_NAME="supplychain_2"
+CHAINCODE_VERSION="1.0"
 CHAINCODE_PATH="../chaincode/supplychain/go/"
-CHAINCODE_LABEL="supplychain_2"
+CHAINCODE_LABEL="supplychain_3"
 
 setEnvForfarmer() {
     export CORE_PEER_TLS_ENABLED=true
@@ -193,7 +193,8 @@ queryApprovedChaincode() {
 initChaincode() {
     setEnvForfarmer
     print Green "========== Init Chaincode on Peer0 farmer ========== "
-    peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer.supplychain.com --tls ${CORE_PEER_TLS_ENABLED} --cafile ${ORDERER_CA} -C ${CHANNEL_NAME} -n ${CHAINCODE_NAME} --peerAddresses localhost:7051 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_ORG1} --peerAddresses localhost:9051 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_ORG2} --peerAddresses localhost:11051 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_ORG3} --peerAddresses localhost:13051 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_ORG4}  --isInit -c '{"Args":[]}'
+    fcn_call='{"function":"initLedger","Args":[]}'
+    peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer.supplychain.com --tls ${CORE_PEER_TLS_ENABLED} --cafile ${ORDERER_CA} -C ${CHANNEL_NAME} -n ${CHAINCODE_NAME} --peerAddresses localhost:7051 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_ORG1} --peerAddresses localhost:9051 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_ORG2} --peerAddresses localhost:11051 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_ORG3} --peerAddresses localhost:13051 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_ORG4}  --isInit -c ${fcn_call} >&log.txt
     print Green "========== Init Chaincode on Peer0 farmer Successful ========== "
     echo ""
 }

@@ -8,7 +8,7 @@ print Blue "$FABRIC_CFG_PATH"
 # print Green "========== Generating Crypto Material =========="
 # echo ""
 
-# ../../fabric-samples/bin/cryptogen generate --config=./crypto-config.yaml --output="organizations"
+../../fabric-samples/bin/cryptogen generate --config=./crypto-config.yaml --output="organizations"
 
 # print Green "========== Crypto Material Generated =========="
 # echo ""
